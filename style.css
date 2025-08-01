@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: black;
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.first-screen {
+    background: black;
+    z-index: 2;
+}
+
+.second-screen {
+    background: lightpink;
+    transform: translateY(100%);
+    z-index: 1;
+}
+
+.third-screen {
+    background: rgb(236, 132, 132);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.third-screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.second-screen.active {
+    transform: translateY(0);
+}
+
+.first-screen.slide-up {
+    transform: translateY(-100%);
+}
+
+.second-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.content {
+    text-align: center;
+    color: rgb(255, 107, 107);
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.love-content {
+    text-align: center;
+    color: #333;
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+.main-text {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.slide-button, .next-button, .back-button {
+    background: rgb(0, 0, 0);
+    border: 2px solid rgb(255, 64, 64);
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+}
+
+.slide-button:hover, .next-button:hover, .back-button:hover {
+    background: rgb(255, 82, 82);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.slide-button:active, .next-button:active, .back-button:active {
+    transform: translateY(0);
+}
+
+/* Love Presentation Styles */
+.image-container {
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-container.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.love-image {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 5px solid white;
+}
+
+.text-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.5s;
+}
+
+.text-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #e91e63;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 1s;
+}
+
+.love-title.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-message {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #de507f;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 1.3s;
+}
+
+.love-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-quote {
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: #ff1f1f;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 1.6s;
+}
+
+.love-quote.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Third Screen Styles */
+.final-title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.final-message {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgb(0, 0, 0);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Heart Confetti Styles */
+.heart-confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.heart-confetti {
+    position: absolute;
+    animation: heartFall linear infinite;
+    opacity: 0.8;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes heartFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-text {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .slide-button, .next-button, .back-button {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    
+    .love-image {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .love-title {
+        font-size: 2rem;
+    }
+    
+    .love-message {
+        font-size: 1rem;
+    }
+    
+    .heart-confetti {
+        max-width: 40px;
+        max-height: 40px;
+    }
+    
+    .final-title {
+        font-size: 2.5rem;
+    }
+    
+    .final-message {
+        font-size: 1.1rem;
+    }
+}
